@@ -106,6 +106,9 @@ app.get('/validation-key.txt', (req, res) => {
 });
 app.get('/healthz', (req, res) => res.send('ok'));
 
+app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
+app.get('/terms', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
+
 app.get('/api/config', (req, res) => res.json({ sandbox: SANDBOX, shop: 'سراج فون', ...settings }));
 
 app.post('/api/login', ah(async (req, res) => {
