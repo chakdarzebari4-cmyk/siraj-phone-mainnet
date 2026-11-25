@@ -155,7 +155,7 @@ async function renderStore(){
   $('#main').innerHTML=heroHtml()+`<input id="q" placeholder="ابحث عن هاتف أو إكسسوار..." value="${esc(S.q)}" oninput="onSearch(this.value)" style="margin-bottom:12px">
   <div class="chips">${cats.map((c,i)=>`<button class="chip ${S.cat===c?'on':''}" data-c="${esc(c)}" onclick="S.cat=this.dataset.c;renderStore()">${c==='all'?'الكل':esc(c)}</button>`).join('')}</div>
   ${list.length?`<div class="grid">${list.map(card).join('')}</div>`:'<div class="empty">لا توجد منتجات مطابقة</div>'}
-  <p class="mut" style="margin-top:30px;text-align:center">${S.cfg.shopPhone?`للتواصل: <a href="tel:${esc(S.cfg.shopPhone)}" class="num">${esc(S.cfg.shopPhone)}</a> · `:''}<a href="#" onclick="adminLogin();return false">دخول الإدارة</a></p>`;
+  <p class="mut" style="margin-top:30px;text-align:center">${S.cfg.shopPhone?`للتواصل: <a href="tel:${esc(S.cfg.shopPhone)}" class="num">${esc(S.cfg.shopPhone)}</a> · `:''}<a href="/privacy">الخصوصية</a> · <a href="/terms">الشروط</a> · <a href="#" onclick="adminLogin();return false">دخول الإدارة</a></p>`;
 }
 function onSearch(v){S.q=v;clearTimeout(window._t);window._t=setTimeout(()=>{renderStore();const i=$('#q');i.focus();i.setSelectionRange(i.value.length,i.value.length)},250)}
 const heroHtml=()=>`<section class="hero"><div><h1>سراج فون</h1><p>هواتف وإكسسوارات أصلية في العراق. ادفع ثمن المنتج بعملة Pi، وأجرة التوصيل نقداً عند الاستلام.</p><div class="pills"><span>⛓ دفع شفاف على البلوكتشين</span><span>🚚 توصيل لكل المحافظات</span><span>↩ استرجاع مباشر للمحفظة</span></div></div><div class="orb"><b>π</b></div></section>`;
