@@ -3,151 +3,163 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07060f">
+<meta name="theme-color" content="#0a0e1a">
 <title>سراج فون</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 <style>
-:root{--bg:#07060f;--glass:rgba(255,255,255,.045);--bd:rgba(255,255,255,.1);--tx:#eeedf8;--mut:#9d9ab8;--v:#8b5cf6;--c:#22d3ee;--a:#fbbf24;--ok:#34d399;--bad:#fb7185;--grad:linear-gradient(135deg,#8b5cf6,#22d3ee)}
+:root{--bg:#0a0e1a;--bg2:#121830;--glass:rgba(255,255,255,.05);--bd:rgba(255,255,255,.09);--tx:#f1f3fa;--mut:#8f98b3;--v:#f5b942;--c:#2dd4bf;--a:#ffd27a;--ok:#34d399;--bad:#fb7185;--grad:linear-gradient(135deg,#f5b942,#f97316);--ink:#1a1204}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
-body{font-family:Tajawal,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;min-height:100vh;padding-bottom:env(safe-area-inset-bottom);
-background-image:radial-gradient(900px 500px at 85% -10%,rgba(139,92,246,.28),transparent 60%),radial-gradient(700px 500px at 0% 20%,rgba(34,211,238,.14),transparent 60%);background-attachment:fixed}
+body{font-family:Tajawal,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;min-height:100vh;
+background-image:radial-gradient(800px 500px at 90% -8%,rgba(245,185,66,.16),transparent 60%),radial-gradient(700px 520px at 0% 30%,rgba(45,212,191,.1),transparent 60%);background-attachment:fixed}
 button,input,select,textarea{font:inherit;color:inherit}
 .num,.pr{font-family:'Space Grotesk',Tajawal,sans-serif}
-header{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,6,15,.72);border-bottom:1px solid var(--bd);padding:calc(10px + env(safe-area-inset-top)) 14px 0}
-.bar,nav,main{max-width:1120px;margin-inline:auto}
+a{color:var(--c)}
+/* الهيكل */
+header{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(10,14,26,.78);border-bottom:1px solid var(--bd);padding:calc(10px + env(safe-area-inset-top)) 14px 10px}
+.bar,main{max-width:1120px;margin-inline:auto}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px}
-.logo i{width:30px;height:30px;border-radius:10px;background:var(--grad);display:grid;place-items:center;box-shadow:0 0 18px rgba(139,92,246,.6);font-style:normal;font-size:17px}
+.logo{display:flex;align-items:center;gap:10px;line-height:1.15}
+.logo svg{flex:none;filter:drop-shadow(0 4px 14px rgba(245,158,11,.45))}
+.logo span{display:flex;flex-direction:column;font-weight:800;font-size:21px}
+.logo small{font-size:10.5px;font-weight:500;color:var(--mut);letter-spacing:.3px}
 .who{display:flex;gap:8px;align-items:center;font-size:13px}
-.wallet{display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:99px;border:1px solid var(--bd);background:var(--glass)}
+.wallet{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:99px;border:1px solid var(--bd);background:var(--glass)}
 .wallet:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
-nav{display:flex;gap:2px;margin-top:6px;overflow-x:auto}
-nav button{background:none;border:0;color:var(--mut);padding:9px 14px;font-weight:700;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
-nav button.on{color:#fff;border-image:var(--grad) 1}
-main{padding:18px 14px 70px}
-.hero{position:relative;overflow:hidden;border:1px solid var(--bd);border-radius:26px;padding:34px 24px;margin-bottom:20px;background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(34,211,238,.06));display:grid;grid-template-columns:1.3fr 1fr;gap:10px;align-items:center}
-.hero h1{font-size:clamp(34px,7vw,58px);font-weight:800;line-height:1.1;background:linear-gradient(90deg,#fff,#c4b5fd 55%,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--mut);margin:10px 0 16px;max-width:42ch}
-.pills{display:flex;gap:8px;flex-wrap:wrap}.pills span{font-size:13px;padding:5px 12px;border-radius:99px;border:1px solid var(--bd);background:var(--glass)}
-.orb{position:relative;aspect-ratio:1;max-width:260px;margin:auto;width:100%;display:grid;place-items:center}
-.orb:before{content:"";position:absolute;inset:8%;border-radius:50%;background:conic-gradient(from 0deg,#8b5cf6,#22d3ee,#fbbf24,#8b5cf6);filter:blur(26px);opacity:.75;animation:spin 9s linear infinite}
-.orb b{position:relative;width:62%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font:700 clamp(60px,12vw,96px) 'Space Grotesk';color:#fff;background:radial-gradient(circle at 30% 25%,#2b2152,#0b0818);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 0 40px rgba(139,92,246,.4)}
+.who>.btn:not(.sec)::before{content:"π";font-family:'Space Grotesk';font-weight:700;margin-inline-end:7px}
+nav{position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:4px;padding:6px;background:rgba(18,24,48,.86);backdrop-filter:blur(18px);border:1px solid var(--bd);border-radius:24px;box-shadow:0 16px 44px -10px rgba(0,0,0,.75);max-width:calc(100% - 20px)}
+nav button,nav a{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:66px;padding:7px 12px;border-radius:18px;background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+nav i{font-style:normal;font-size:19px;line-height:1.2}
+nav button:hover,nav a:hover{color:#fff}
+nav button.on{background:var(--grad);color:var(--ink)}
+main{padding:18px 14px 120px}
+/* الواجهة الرئيسية */
+.hero{position:relative;overflow:hidden;border:1px solid var(--bd);border-radius:30px;padding:40px 28px;margin-bottom:16px;background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(45,212,191,.06) 65%);display:grid;grid-template-columns:1.3fr 1fr;gap:10px;align-items:center;box-shadow:0 30px 80px -40px rgba(245,158,11,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:linear-gradient(120deg,#000,transparent 70%);mask-image:linear-gradient(120deg,#000,transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:clamp(34px,7vw,56px);font-weight:800;line-height:1.1;background:linear-gradient(90deg,#fff,#ffe1a1 60%,#f5b942);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);margin:10px 0 18px;max-width:44ch}
+.hero .row{gap:10px}.hero .row>*{flex:none}
+.orb{position:relative;aspect-ratio:1;max-width:240px;margin:auto;width:100%;display:grid;place-items:center}
+.orb:before{content:"";position:absolute;inset:6%;border-radius:50%;background:conic-gradient(from 0deg,#f5b942,#f97316,#2dd4bf,#f5b942);filter:blur(28px);opacity:.6;animation:spin 10s linear infinite}
+.orb:after{content:"";position:absolute;inset:1%;border-radius:50%;border:1px dashed rgba(255,255,255,.22);animation:spin 30s linear infinite reverse}
+.orb b{position:relative;width:62%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font:700 clamp(58px,11vw,92px) 'Space Grotesk';color:#fff;background:radial-gradient(circle at 30% 25%,#2a3156,#0a0e1a);border:1px solid rgba(255,255,255,.18);text-shadow:0 0 30px rgba(245,185,66,.9);box-shadow:inset 0 0 40px rgba(245,185,66,.3)}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.orb:before{animation:none}html{scroll-behavior:auto}}
-@media(max-width:640px){.hero{grid-template-columns:1fr;padding:24px 18px}.orb{max-width:150px;order:-1}}
-input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:rgba(255,255,255,.05)}
-select option{background:#15112a}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.25)}
-button:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.orb:before,.orb:after{animation:none}html{scroll-behavior:auto}}
+@media(max-width:640px){.hero{grid-template-columns:1fr;padding:26px 18px}.orb{max-width:130px;order:-1}.logo small{display:none}}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:26px}
+.perk{display:flex;gap:11px;align-items:center;padding:12px 14px;border:1px solid var(--bd);border-radius:18px;background:var(--glass);font-size:14px;font-weight:700}
+.perk i{font-style:normal;font-size:22px;width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:rgba(245,185,66,.14);flex:none}
+.perk small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.sech{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px}
+.sech h2{font-size:22px;font-weight:800}
+.sech h2:after{content:"";display:block;width:38px;height:4px;border-radius:4px;background:var(--grad);margin-top:5px}
+/* النماذج */
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--bd);border-radius:14px;background:rgba(255,255,255,.05);transition:border-color .2s,box-shadow .2s}
+select option{background:#151b35}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--v);box-shadow:0 0 0 3px rgba(245,185,66,.22)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--c);outline-offset:2px}
 textarea{min-height:84px;resize:vertical}
 label{display:block;font-weight:700;font-size:14px;margin:12px 0 5px}
-.chips{display:flex;gap:7px;overflow-x:auto;padding:2px 0 8px;margin-bottom:8px}
-.chip{border:1px solid var(--bd);background:var(--glass);border-radius:99px;padding:6px 16px;cursor:pointer;white-space:nowrap;color:var(--mut)}
-.chip.on{background:var(--grad);border-color:transparent;color:#fff;font-weight:700}
+.search{position:relative;margin-bottom:12px}
+.search input{padding-inline-start:44px;border-radius:99px;background:rgba(255,255,255,.07)}
+.search:before{content:"🔍";position:absolute;inset-inline-start:15px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.7}
+.chips{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;margin-bottom:6px}
+.chip{border:1px solid var(--bd);background:var(--glass);border-radius:99px;padding:7px 18px;cursor:pointer;white-space:nowrap;color:var(--mut);transition:all .2s}
+.chip:hover{border-color:rgba(245,185,66,.6);color:#fff}
+.chip.on{background:var(--grad);border-color:transparent;color:var(--ink);font-weight:800}
+/* المنتجات */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
-.card{position:relative;background:var(--glass);border:1px solid var(--bd);border-radius:18px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s}
-.card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.7);box-shadow:0 10px 36px -10px rgba(139,92,246,.55)}
-.ph{aspect-ratio:1;background:#120e24;display:grid;place-items:center;font-size:48px;position:relative}
-.ph img{width:100%;height:100%;object-fit:cover}
-.cnt{position:absolute;bottom:8px;left:8px;font-size:12px;background:rgba(7,6,15,.75);padding:1px 9px;border-radius:99px;border:1px solid var(--bd)}
+.card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--bd);border-radius:22px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .25s,border-color .25s,box-shadow .25s}
+.card:hover{transform:translateY(-6px);border-color:rgba(245,185,66,.6);box-shadow:0 16px 44px -12px rgba(245,158,11,.45)}
+.ph{aspect-ratio:1;background:radial-gradient(circle at 50% 30%,#232b52,#0d1226);display:grid;place-items:center;font-size:48px;position:relative;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .ph img{transform:scale(1.08)}
+.cnt{position:absolute;bottom:8px;left:8px;font-size:12px;background:rgba(10,14,26,.78);padding:1px 9px;border-radius:99px;border:1px solid var(--bd)}
 .sold{position:absolute;top:8px;right:8px;background:var(--bad);color:#150010;font-weight:800;font-size:12px;padding:2px 9px;border-radius:8px}
-.card h3{font-size:15px;padding:10px 12px 0;font-weight:700}
-.rt{padding:0 12px;font-size:13px;color:var(--a);letter-spacing:1px}.rt small{color:var(--mut);letter-spacing:0}
-.pr{margin:6px 12px 12px;font-weight:700;font-size:18px;color:var(--a);text-shadow:0 0 18px rgba(251,191,36,.35)}
-.btn{background:var(--grad);color:#07060f;border:0;border-radius:12px;padding:12px 18px;font-weight:800;cursor:pointer;box-shadow:0 6px 22px -6px rgba(139,92,246,.7);transition:filter .15s,transform .1s}
-.btn:hover{filter:brightness(1.1)}.btn:active{transform:scale(.98)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.card h3{font-size:15.5px;padding:11px 13px 0;font-weight:700}
+.rt{padding:0 13px;font-size:13px;color:var(--a);letter-spacing:1px}.rt small{color:var(--mut);letter-spacing:0}
+.pr{margin:6px 13px 13px;font-weight:700;font-size:18px;color:var(--a)}
+/* الأزرار */
+.btn{display:inline-block;text-align:center;text-decoration:none;background:var(--grad);color:var(--ink);border:0;border-radius:14px;padding:12px 20px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px -8px rgba(245,158,11,.6);transition:filter .15s,transform .1s,box-shadow .2s}
+.btn:hover{filter:brightness(1.08);box-shadow:0 12px 30px -8px rgba(245,158,11,.7)}.btn:active{transform:scale(.98)}.btn:disabled{opacity:.45;cursor:not-allowed}
 .btn.sec{background:var(--glass);color:var(--tx);border:1px solid var(--bd);box-shadow:none}
-.btn.bad{background:var(--bad);color:#1a0008;box-shadow:none}.btn.ok{background:var(--ok);color:#00170d;box-shadow:none}.btn.sm{padding:7px 13px;font-size:13px}
+.btn.bad{background:var(--bad);color:#1a0008;box-shadow:none}.btn.ok{background:var(--ok);color:#00170d;box-shadow:none}.btn.sm{padding:8px 14px;font-size:13px;border-radius:12px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.row .btn,.row .tag{flex:none}
-.box{background:var(--glass);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
-.tag{display:inline-block;padding:2px 11px;border-radius:99px;font-size:12px;font-weight:700;background:rgba(139,92,246,.18);color:#c4b5fd;border:1px solid rgba(139,92,246,.35)}
-.tag.g{background:rgba(52,211,153,.12);color:var(--ok);border-color:rgba(52,211,153,.35)}.tag.r{background:rgba(251,113,133,.12);color:var(--bad);border-color:rgba(251,113,133,.35)}.tag.y{background:rgba(251,191,36,.12);color:var(--a);border-color:rgba(251,191,36,.35)}
+.box{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid var(--bd);border-radius:20px;padding:15px;margin-bottom:12px}
+.tag{display:inline-block;padding:2px 11px;border-radius:99px;font-size:12px;font-weight:700;background:rgba(245,185,66,.15);color:var(--a);border:1px solid rgba(245,185,66,.35)}
+.tag.g{background:rgba(52,211,153,.12);color:var(--ok);border-color:rgba(52,211,153,.35)}.tag.r{background:rgba(251,113,133,.12);color:var(--bad);border-color:rgba(251,113,133,.35)}.tag.y{background:rgba(251,191,36,.12);color:#fbbf24;border-color:rgba(251,191,36,.35)}
 .mut{color:var(--mut);font-size:13px}.ttl{font-weight:800;font-size:20px;margin:4px 0 12px}
-.modal{position:fixed;inset:0;background:rgba(3,2,10,.72);backdrop-filter:blur(6px);z-index:50;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:#0f0b20;border:1px solid var(--bd);width:100%;max-width:580px;max-height:93vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -20px 60px -20px rgba(139,92,246,.4)}
-@media(min-width:700px){.modal{align-items:center}.sheet{border-radius:24px}}
+/* النوافذ */
+.modal{position:fixed;inset:0;background:rgba(4,6,14,.74);backdrop-filter:blur(6px);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:linear-gradient(180deg,#171e3c,#0d1226);border:1px solid rgba(255,255,255,.14);width:100%;max-width:580px;max-height:93vh;overflow:auto;border-radius:26px 26px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -20px 60px -20px rgba(245,158,11,.25)}
+@media(min-width:700px){.modal{align-items:center}.sheet{border-radius:26px}}
 .x{float:left;background:var(--glass);border:1px solid var(--bd);border-radius:50%;width:34px;height:34px;cursor:pointer}
-.gal{position:relative}.big{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;background:#120e24;display:block}
-.thumbs{display:flex;gap:7px;margin-top:8px;overflow-x:auto}.thumbs img{width:62px;height:62px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;opacity:.7}.thumbs img.on{border-color:var(--c);opacity:1}
+.gal{position:relative}.big{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;background:#0d1226;display:block}
+.thumbs{display:flex;gap:7px;margin-top:8px;overflow-x:auto}.thumbs img{width:62px;height:62px;object-fit:cover;border-radius:12px;border:2px solid transparent;cursor:pointer;opacity:.7}.thumbs img.on{border-color:var(--v);opacity:1}
 .stars button{background:none;border:0;font-size:30px;color:rgba(255,255,255,.18);cursor:pointer;padding:0 2px}.stars button.on{color:var(--a)}
 .rev{border-top:1px solid var(--bd);padding:9px 0;font-size:14px}
-.sum{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:12px;padding:11px 13px;font-size:14px;margin-top:12px}
+.sum{background:rgba(245,185,66,.09);border:1px solid rgba(245,185,66,.28);border-radius:14px;padding:11px 13px;font-size:14px;margin-top:12px}
 .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.stat div{background:var(--glass);border:1px solid var(--bd);border-radius:16px;padding:14px;color:var(--mut);font-size:14px}.stat b{display:block;font:700 28px 'Space Grotesk';color:var(--tx)}
+.stat div{background:linear-gradient(135deg,rgba(245,185,66,.1),rgba(255,255,255,.03));border:1px solid var(--bd);border-radius:18px;padding:14px;color:var(--mut);font-size:14px}.stat b{display:block;font:700 28px 'Space Grotesk';background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.slot{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;border:1px dashed var(--bd);background:var(--glass);display:grid;place-items:center;color:var(--mut);font-size:13px;cursor:pointer;text-align:center}
+.slot{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px dashed var(--bd);background:var(--glass);display:grid;place-items:center;color:var(--mut);font-size:13px;cursor:pointer;text-align:center}
 .slot img{width:100%;height:100%;object-fit:cover}.slot.full{border-style:solid}
-.slot .rm,.slot .cv{position:absolute;top:4px;background:rgba(7,6,15,.8);border:1px solid var(--bd);color:#fff;border-radius:8px;font-size:12px;padding:1px 7px;cursor:pointer}
+.slot .rm,.slot .cv{position:absolute;top:4px;background:rgba(10,14,26,.82);border:1px solid var(--bd);color:#fff;border-radius:8px;font-size:12px;padding:1px 7px;cursor:pointer}
 .slot .rm{right:4px}.slot .cv{left:4px}
 .slot input{display:none}
-.toast{position:fixed;bottom:calc(22px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#1a1432;border:1px solid var(--v);color:#fff;padding:11px 20px;border-radius:12px;z-index:99;max-width:90vw;font-size:14px;box-shadow:0 10px 40px rgba(139,92,246,.4)}
-a{color:var(--c)}.empty{text-align:center;color:var(--mut);padding:44px 10px}
-.skel{height:230px;border-radius:18px;background:linear-gradient(90deg,var(--glass),rgba(255,255,255,.09),var(--glass));background-size:200% 100%;animation:sh 1.4s infinite}
+.toast{position:fixed;bottom:calc(92px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#1a2144;border:1px solid var(--v);color:#fff;padding:11px 20px;border-radius:14px;z-index:99;max-width:90vw;font-size:14px;box-shadow:0 10px 40px rgba(245,158,11,.3)}
+.empty{text-align:center;color:var(--mut);padding:44px 10px}
+.skel{height:230px;border-radius:22px;background:linear-gradient(90deg,var(--glass),rgba(255,255,255,.09),var(--glass));background-size:200% 100%;animation:sh 1.4s infinite}
 @keyframes sh{to{background-position:-200% 0}}
 .hash{font-family:'Space Grotesk',monospace;font-size:12px;word-break:break-all}
-/* ===== تحسينات التصميم ===== */
-body{background-image:radial-gradient(900px 520px at 85% -10%,rgba(139,92,246,.32),transparent 60%),radial-gradient(700px 500px at 0% 25%,rgba(34,211,238,.16),transparent 60%),radial-gradient(600px 400px at 50% 110%,rgba(251,191,36,.07),transparent 60%)}
-header{box-shadow:0 10px 40px -20px rgba(139,92,246,.5)}
-.logo{gap:11px;line-height:1.15}
-.logo svg{flex:none;filter:drop-shadow(0 0 14px rgba(139,92,246,.65))}
-.logo span{display:flex;flex-direction:column;font-size:21px;background:linear-gradient(90deg,#fff,#c4b5fd 60%,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
-.logo small{font-size:10.5px;font-weight:500;letter-spacing:.4px;-webkit-text-fill-color:var(--mut)}
-.who>.btn:not(.sec)::before{content:"π";font-family:'Space Grotesk';font-weight:700;margin-inline-end:7px}
-.who>.btn:not(.sec){padding:8px 16px;font-size:13.5px}
-
-.hero{border-radius:30px;padding:42px 28px;background:linear-gradient(135deg,rgba(139,92,246,.24),rgba(34,211,238,.07) 60%,rgba(251,191,36,.05));box-shadow:0 30px 80px -40px rgba(139,92,246,.75),inset 0 1px 0 rgba(255,255,255,.1)}
-.hero:after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:linear-gradient(120deg,#000,transparent 70%);mask-image:linear-gradient(120deg,#000,transparent 70%)}
-.hero>*{position:relative;z-index:1}
-.pills span{backdrop-filter:blur(8px);background:rgba(255,255,255,.06)}
-.orb b{text-shadow:0 0 30px rgba(139,92,246,.95);box-shadow:inset 0 0 40px rgba(139,92,246,.45),0 0 60px -10px rgba(34,211,238,.5)}
-.orb:after{content:"";position:absolute;inset:1%;border-radius:50%;border:1px dashed rgba(255,255,255,.2);animation:spin 28s linear infinite reverse}
-@media(prefers-reduced-motion:reduce){.orb:after{animation:none}}
-
-.card{border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
-.card:hover{transform:translateY(-6px);border-color:rgba(34,211,238,.6);box-shadow:0 16px 44px -12px rgba(139,92,246,.65)}
-.ph{overflow:hidden;background:radial-gradient(circle at 50% 30%,#1d1640,#0d0a1d)}
-.ph img{transition:transform .5s}
-.card:hover .ph img{transform:scale(1.08)}
-.card h3{font-size:15.5px}
-.pr{letter-spacing:.3px}
-
-.btn{letter-spacing:.2px}
-.btn:not(.sec):not(.bad):not(.ok):hover{box-shadow:0 10px 30px -6px rgba(34,211,238,.55)}
-.chip{transition:all .2s}
-.chip:hover{border-color:rgba(139,92,246,.6);color:#fff}
-nav button{transition:color .2s}
-nav button:hover{color:#fff}
-input,select,textarea{border-radius:14px;transition:border-color .2s,box-shadow .2s}
-.sheet{background:linear-gradient(180deg,#141029,#0d0a1c);border-color:rgba(255,255,255,.14)}
-.box{border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025))}
-.stat div{border-radius:18px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(255,255,255,.03))}
-.stat b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* الموقع والتذييل */
+.loc{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:34px;padding:22px;border:1px solid var(--bd);border-radius:28px;background:linear-gradient(135deg,rgba(45,212,191,.1),rgba(245,185,66,.07));overflow:hidden}
+.loc h2{font-size:22px;font-weight:800;margin-bottom:6px}
+.loc p{color:var(--mut);margin-bottom:14px}
+.loc .row{gap:10px}.loc .row>*{flex:none}
+.mapart{position:relative;min-height:170px;border-radius:20px;border:1px solid var(--bd);display:grid;place-items:center;text-decoration:none;color:var(--tx);font-weight:800;
+background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px),radial-gradient(circle at 50% 50%,rgba(45,212,191,.2),#0d1226 75%);background-size:28px 28px,28px 28px,auto}
+.mapart i{font-style:normal;font-size:44px;display:block;text-align:center;animation:bob 2.2s ease-in-out infinite}
+.mapart span{display:block;text-align:center;font-size:14px}
+@keyframes bob{50%{transform:translateY(-7px)}}
+@media(prefers-reduced-motion:reduce){.mapart i{animation:none}}
+@media(max-width:640px){.loc{grid-template-columns:1fr;padding:18px}}
+footer{margin-top:26px;padding-top:18px;border-top:1px solid var(--bd);text-align:center}
+footer .links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+footer .links a{padding:6px 16px;border:1px solid var(--bd);border-radius:99px;background:var(--glass);color:var(--tx);text-decoration:none;font-size:13px;font-weight:700}
+footer .links a:hover{border-color:rgba(245,185,66,.6)}
+footer .adm{background:none;border:0;color:var(--mut);font-size:12px;cursor:pointer;text-decoration:underline;margin-top:6px}
 </style>
 </head>
 <body>
 <header>
   <div class="bar">
     <div class="logo">
-  <svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
-    <rect width="48" height="48" rx="14" fill="url(#lg)"/>
-    <rect x="15" y="8" width="18" height="32" rx="4.5" fill="#0b0818"/>
-    <path d="M24 12.5c2.7 2.7 3.8 4.6 3.8 6.3a3.8 3.8 0 0 1-7.6 0c0-1.7 1.1-3.6 3.8-6.3z" fill="#fbbf24"/>
-    <path d="M20 27.5h8M22 27.5v6.5M26 27.5v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-  </svg>
-  <span>سراج فون<small>هواتف · إكسسوارات · Pi</small></span>
-</div>
+      <svg viewBox="0 0 48 48" width="42" height="42" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="#f97316"/></linearGradient></defs>
+        <rect width="48" height="48" rx="15" fill="url(#lg)"/>
+        <rect x="14.5" y="7" width="19" height="34" rx="5" fill="#0a0e1a"/>
+        <path d="M24 10.5c3 3 4.2 5 4.2 6.9a4.2 4.2 0 0 1-8.4 0c0-1.9 1.2-3.9 4.2-6.9z" fill="#ffd27a"/>
+        <path d="M24 14.5c1.2 1.3 1.7 2.2 1.7 3a1.7 1.7 0 0 1-3.4 0c0-.8.5-1.7 1.7-3z" fill="#f97316"/>
+        <text x="24" y="35" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="14" fill="#fff">π</text>
+      </svg>
+      <span>سراج فون<small>هواتف · إكسسوارات · Pi</small></span>
+    </div>
     <div class="who" id="who"></div>
   </div>
-  <nav id="nav"></nav>
 </header>
 <main id="main"></main>
+<nav id="nav"></nav>
 <div id="modal"></div>
 
 <script>
+/* ===== إعدادات المحل: ضع رابط خرائط جوجل وعنوان المحل هنا ===== */
+const MAP_URL='';            // مثال: 'https://maps.app.goo.gl/xxxxxxxx'
+const SHOP_ADDR='';          // مثال: 'العراق، بغداد، شارع ... بالقرب من ...'
+
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const S={token:localStorage.getItem('sf_token')||'',user:null,admin:false,cfg:{},products:[],loaded:false,cat:'all',q:'',view:'store',atab:'summary',pimgs:[],newPids:[],star:5};
@@ -187,24 +199,29 @@ async function doAdminLogin(){try{const d=await api('/api/admin/login','POST',{p
 /* ---------- الهيكل ---------- */
 function chrome(){
   $('#who').innerHTML=S.user?`<span class="wallet num">π ${esc(S.user.username)}</span><button class="btn sm sec" onclick="logout()">خروج</button>`:`<button class="btn sm" onclick="piLogin()">تسجيل الدخول بباي</button>`;
-  const tabs=[['store','المتجر'],['orders','طلباتي']];if(S.admin)tabs.push(['admin','الإدارة']);
-  $('#nav').innerHTML=tabs.map(([k,n])=>`<button class="${S.view===k?'on':''}" onclick="go('${k}')">${n}</button>`).join('');
+  const tabs=[['store','🏬','المتجر'],['orders','🧾','طلباتي']];if(S.admin)tabs.push(['admin','⚙️','الإدارة']);
+  $('#nav').innerHTML=tabs.map(([k,i,n])=>`<button class="${S.view===k?'on':''}" onclick="go('${k}')"><i>${i}</i><span>${n}</span></button>`).join('')
+    +(MAP_URL?`<a href="${esc(MAP_URL)}" target="_blank" rel="noopener"><i>📍</i><span>موقعنا</span></a>`:'');
 }
 function go(v){S.view=v;chrome();render();scrollTo(0,0)}
 function render(){({store:renderStore,orders:renderOrders,admin:renderAdmin})[S.view]()}
 
 /* ---------- المتجر ---------- */
+function scrollShop(){const e=document.getElementById('shop');if(e)e.scrollIntoView({behavior:'smooth',block:'start'})}
+const heroHtml=()=>`<section class="hero"><div><h1>سراج فون</h1><p>هواتف وإكسسوارات أصلية في العراق. ادفع ثمن المنتج بعملة Pi، وأجرة التوصيل نقداً عند الاستلام.</p><div class="row"><button class="btn" onclick="scrollShop()">تصفّح المنتجات</button>${MAP_URL?`<a class="btn sec" href="${esc(MAP_URL)}" target="_blank" rel="noopener">📍 موقع المحل</a>`:''}</div></div><div class="orb"><b>π</b></div></section>
+<div class="perks"><div class="perk"><i>⛓</i><div>دفع شفاف<small>على بلوكتشين Pi</small></div></div><div class="perk"><i>🚚</i><div>توصيل لكل المحافظات<small>الأجرة عند الاستلام</small></div></div><div class="perk"><i>↩</i><div>استرجاع مباشر<small>إلى محفظتك</small></div></div></div>`;
+const locHtml=()=>(MAP_URL||SHOP_ADDR||S.cfg.shopPhone)?`<section class="loc" id="loc"><div><h2>📍 زورونا في المحل</h2><p>${SHOP_ADDR?esc(SHOP_ADDR):'يسعدنا استقبالكم وخدمتكم.'}</p><div class="row">${MAP_URL?`<a class="btn" href="${esc(MAP_URL)}" target="_blank" rel="noopener">افتح في خرائط جوجل</a>`:''}${S.cfg.shopPhone?`<a class="btn sec num" href="tel:${esc(S.cfg.shopPhone)}">📞 ${esc(S.cfg.shopPhone)}</a>`:''}</div></div>${MAP_URL?`<a class="mapart" href="${esc(MAP_URL)}" target="_blank" rel="noopener"><div><i>📍</i><span>اضغط لعرض الموقع على الخريطة</span></div></a>`:''}</section>`:'';
+const footHtml=()=>`<footer><div class="links"><a href="/privacy">سياسة الخصوصية</a><a href="/terms">شروط الاستخدام</a></div><div class="mut">© سراج فون · جميع الحقوق محفوظة</div><button class="adm" onclick="adminLogin()">دخول الإدارة</button></footer>`;
 async function renderStore(){
   if(!S.loaded){$('#main').innerHTML=heroHtml()+'<div class="grid">'+'<div class="skel"></div>'.repeat(4)+'</div>';S.products=await api('/api/products').catch(()=>[]);S.loaded=true;if(S.view!=='store')return}
   const cats=['all',...new Set(S.products.map(p=>p.category))];
   const list=S.products.filter(p=>(S.cat==='all'||p.category===S.cat)&&(!S.q||(p.name+' '+p.description).toLowerCase().includes(S.q.toLowerCase())));
-  $('#main').innerHTML=heroHtml()+`<input id="q" placeholder="ابحث عن هاتف أو إكسسوار..." value="${esc(S.q)}" oninput="onSearch(this.value)" style="margin-bottom:12px">
-  <div class="chips">${cats.map((c,i)=>`<button class="chip ${S.cat===c?'on':''}" data-c="${esc(c)}" onclick="S.cat=this.dataset.c;renderStore()">${c==='all'?'الكل':esc(c)}</button>`).join('')}</div>
-  ${list.length?`<div class="grid">${list.map(card).join('')}</div>`:'<div class="empty">لا توجد منتجات مطابقة</div>'}
-  <p class="mut" style="margin-top:30px;text-align:center">${S.cfg.shopPhone?`للتواصل: <a href="tel:${esc(S.cfg.shopPhone)}" class="num">${esc(S.cfg.shopPhone)}</a> · `:''}<a href="/privacy">الخصوصية</a> · <a href="/terms">الشروط</a> · <a href="#" onclick="adminLogin();return false">دخول الإدارة</a></p>`;
+  $('#main').innerHTML=heroHtml()+`<div id="shop" style="scroll-margin-top:80px"><div class="sech"><h2>المنتجات</h2></div>
+  <div class="search"><input id="q" placeholder="ابحث عن هاتف أو إكسسوار..." value="${esc(S.q)}" oninput="onSearch(this.value)"></div>
+  <div class="chips">${cats.map(c=>`<button class="chip ${S.cat===c?'on':''}" data-c="${esc(c)}" onclick="S.cat=this.dataset.c;renderStore()">${c==='all'?'الكل':esc(c)}</button>`).join('')}</div>
+  ${list.length?`<div class="grid">${list.map(card).join('')}</div>`:'<div class="empty">لا توجد منتجات مطابقة</div>'}</div>`+locHtml()+footHtml();
 }
 function onSearch(v){S.q=v;clearTimeout(window._t);window._t=setTimeout(()=>{renderStore();const i=$('#q');i.focus();i.setSelectionRange(i.value.length,i.value.length)},250)}
-const heroHtml=()=>`<section class="hero"><div><h1>سراج فون</h1><p>هواتف وإكسسوارات أصلية في العراق. ادفع ثمن المنتج بعملة Pi، وأجرة التوصيل نقداً عند الاستلام.</p><div class="pills"><span>⛓ دفع شفاف على البلوكتشين</span><span>🚚 توصيل لكل المحافظات</span><span>↩ استرجاع مباشر للمحفظة</span></div></div><div class="orb"><b>π</b></div></section>`;
 const card=p=>`<article class="card" onclick="showProduct('${p.id}')"><div class="ph">${p.images[0]?`<img loading="lazy" src="${esc(thumb(p.images[0].url,480))}" alt="">`:'📱'}${p.stock<=0?'<b class="sold">نفدت الكمية</b>':''}${p.images.length>1?`<span class="cnt num">${p.images.length} 🖼</span>`:''}</div><h3>${esc(p.name)}</h3><div class="rt">${stars(p.rating)} <small>(${p.reviewsCount})</small></div><div class="pr">${p.price} π</div></article>`;
 
 async function showProduct(id){
@@ -268,11 +285,11 @@ function payOrder(o,btn){
 
 /* ---------- طلباتي ---------- */
 async function renderOrders(){
-  if(!S.user){$('#main').innerHTML='<div class="empty">سجّل الدخول بباي لعرض طلباتك<br><br><button class="btn" onclick="piLogin().then(ok=>ok&&renderOrders())">تسجيل الدخول بباي</button></div>';return}
+  if(!S.user){$('#main').innerHTML='<div class="empty">سجّل الدخول بباي لعرض طلباتك<br><br><button class="btn" onclick="piLogin().then(ok=>ok&&renderOrders())">تسجيل الدخول بباي</button></div>'+footHtml();return}
   $('#main').innerHTML='<div class="empty">جارٍ التحميل...</div>';
   let list;try{list=await api('/api/orders/mine')}catch(e){return $('#main').innerHTML=`<div class="empty">${esc(e.message)}</div>`}
   const days=Number(S.cfg.refundDays)||7;
-  $('#main').innerHTML=list.length?list.map(o=>{
+  $('#main').innerHTML=`<div class="sech"><h2>طلباتي</h2></div>`+(list.length?list.map(o=>{
     const [sl,sc]=ST[o.status]||[o.status,''],rf=RF[o.refund.status];
     const can=['paid','processing','shipped','delivered'].includes(o.status)&&o.refund.status==='none';
     return `<div class="box"><div class="row"><b class="num">${o.id}</b><span class="tag ${sc}">${sl}</span></div>
@@ -281,7 +298,7 @@ async function renderOrders(){
     ${o.txid?`<div class="mut">المعاملة: <a target="_blank" rel="noopener" class="hash" href="${txLink(o.txid)}">${esc(o.txid.slice(0,10))}…${esc(o.txid.slice(-6))}</a></div>`:''}
     ${!['refunded','delivered'].includes(o.status)?`<div class="mut">${esc(S.cfg.deliveryNote||'')}</div>`:''}
     ${rf?`<div style="margin-top:7px"><span class="tag ${rf[1]}">${rf[0]}</span> ${o.refund.adminNote?`<span class="mut">${esc(o.refund.adminNote)}</span>`:''}${o.refund.txid?` <a target="_blank" rel="noopener" class="hash" href="${txLink(o.refund.txid)}">معاملة الاسترجاع</a>`:''}</div>`:''}
-    ${can?`<button class="btn sec sm" style="margin-top:9px" onclick="refundModal('${o.id}')">طلب استرجاع المبلغ</button> <span class="mut">(خلال ${days} أيام)</span>`:''}</div>`}).join(''):'<div class="empty">لا توجد طلبات بعد</div>';
+    ${can?`<button class="btn sec sm" style="margin-top:9px" onclick="refundModal('${o.id}')">طلب استرجاع المبلغ</button> <span class="mut">(خلال ${days} أيام)</span>`:''}</div>`}).join(''):'<div class="empty">لا توجد طلبات بعد</div>')+footHtml();
 }
 function refundModal(id){openModal(`<div class="ttl">طلب استرجاع</div><p class="mut">عند موافقة الإدارة يُحوَّل ثمن المنتج مباشرة إلى محفظة Pi الخاصة بك.</p><label>سبب الاسترجاع</label><textarea id="rr"></textarea><br><br><button class="btn" style="width:100%" onclick="sendRefund('${id}')">إرسال الطلب</button>`)}
 async function sendRefund(id){try{await api(`/api/orders/${id}/refund`,'POST',{reason:$('#rr').value});closeModal();toast('تم إرسال طلب الاسترجاع');renderOrders()}catch(e){toast(e.message)}}
@@ -290,13 +307,13 @@ async function sendRefund(id){try{await api(`/api/orders/${id}/refund`,'POST',{r
 const ATABS=[['summary','الملخص'],['products','المنتجات'],['orders','الطلبات'],['refunds','الاسترجاع'],['settings','الإعدادات']];
 async function renderAdmin(){
   if(!S.admin){go('store');return}
-  $('#main').innerHTML=`<div class="chips">${ATABS.map(([k,n])=>`<button class="chip ${S.atab===k?'on':''}" onclick="S.atab='${k}';renderAdmin()">${n}</button>`).join('')}</div><div id="ab" class="empty">جارٍ التحميل...</div>`;
+  $('#main').innerHTML=`<div class="sech"><h2>لوحة الإدارة</h2></div><div class="chips">${ATABS.map(([k,n])=>`<button class="chip ${S.atab===k?'on':''}" onclick="S.atab='${k}';renderAdmin()">${n}</button>`).join('')}</div><div id="ab" class="empty">جارٍ التحميل...</div>`;
   try{await ({summary:aSummary,products:aProducts,orders:aOrders,refunds:aRefunds,settings:aSettings})[S.atab]()}catch(e){$('#ab').className='empty';$('#ab').textContent=e.message}
 }
 async function aSummary(){const s=await api('/api/admin/summary');$('#ab').className='stat';$('#ab').innerHTML=[['المنتجات',s.products],['الطلبات المدفوعة',s.orders],['طلبات جديدة',s.newOrders],['المبيعات (π)',s.revenuePi],['استرجاع معلّق',s.refundsPending],['العملاء',s.users]].map(([a,b])=>`<div><b>${b}</b>${a}</div>`).join('')}
 async function aProducts(){
   const l=await api('/api/admin/products');S.aprods=l;$('#ab').className='';
-  $('#ab').innerHTML=`<button class="btn" onclick="productForm()">+ إضافة منتج</button><br><br>`+(l.length?l.map(p=>`<div class="box"><div class="row">${p.images[0]?`<img src="${esc(thumb(p.images[0].url,120))}" style="width:56px;height:56px;border-radius:10px;object-fit:cover;flex:none">`:''}<div><b>${esc(p.name)}</b><div class="mut">${esc(p.category)} · <span class="num">${p.price} π</span> · المخزون ${p.stock} · ${p.images.length}/6 صور · ★${(p.rating||0).toFixed(1)}</div></div><span class="tag ${p.active?'g':'r'}">${p.active?'ظاهر':'مخفي'}</span></div><div class="row" style="margin-top:9px"><button class="btn sm sec" onclick="productForm('${p.id}')">تعديل</button><button class="btn sm sec" onclick="adminReviews('${p.id}')">التقييمات</button><button class="btn sm bad" onclick="delProduct('${p.id}')">حذف</button></div></div>`).join(''):'<div class="empty">أضف أول منتج لمتجرك</div>');
+  $('#ab').innerHTML=`<button class="btn" onclick="productForm()">+ إضافة منتج</button><br><br>`+(l.length?l.map(p=>`<div class="box"><div class="row">${p.images[0]?`<img src="${esc(thumb(p.images[0].url,120))}" style="width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none">`:''}<div><b>${esc(p.name)}</b><div class="mut">${esc(p.category)} · <span class="num">${p.price} π</span> · المخزون ${p.stock} · ${p.images.length}/6 صور · ★${(p.rating||0).toFixed(1)}</div></div><span class="tag ${p.active?'g':'r'}">${p.active?'ظاهر':'مخفي'}</span></div><div class="row" style="margin-top:9px"><button class="btn sm sec" onclick="productForm('${p.id}')">تعديل</button><button class="btn sm sec" onclick="adminReviews('${p.id}')">التقييمات</button><button class="btn sm bad" onclick="delProduct('${p.id}')">حذف</button></div></div>`).join(''):'<div class="empty">أضف أول منتج لمتجرك</div>');
 }
 
 /* رفع الصور: تصغير في المتصفح ثم رفع مباشر إلى Cloudinary */
@@ -305,7 +322,7 @@ function drawSlots(){
   const el=$('#slots');if(!el)return;let h='';
   for(let i=0;i<6;i++){
     const m=S.pimgs[i];
-    if(m)h+=`<div class="slot full"><img src="${esc(thumb(m.url,240))}" alt=""><button class="rm" onclick="rmImg(${i})">✕</button>${i?`<button class="cv" onclick="coverImg(${i})">★ غلاف</button>`:'<span class="cv" style="background:var(--v)">الغلاف</span>'}</div>`;
+    if(m)h+=`<div class="slot full"><img src="${esc(thumb(m.url,240))}" alt=""><button class="rm" onclick="rmImg(${i})">✕</button>${i?`<button class="cv" onclick="coverImg(${i})">★ غلاف</button>`:'<span class="cv" style="background:var(--v);color:var(--ink)">الغلاف</span>'}</div>`;
     else if(S.uploading&&i===S.pimgs.length)h+='<div class="slot">جارٍ الرفع...</div>';
     else h+=`<label class="slot">+ صورة<input type="file" accept="image/*" multiple onchange="uploadImgs(this.files)"></label>`;
   }
